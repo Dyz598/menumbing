@@ -9,7 +9,7 @@ namespace Menumbing\Resource\Contract;
  */
 interface RequestIpAddressInterface
 {
-    public function getClientIp(): string;
+    public function getClientIp(): ?string;
 
     public function getClientIps(): array;
 

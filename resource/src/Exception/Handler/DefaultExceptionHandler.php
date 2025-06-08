@@ -8,6 +8,7 @@ use Hyperf\Di\Annotation\Inject;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Exception\HttpException;
 use Hyperf\HttpMessage\Stream\SwooleStream;
+use Menumbing\Contract\Exception\HasHttpResponseInterface;
 use Menumbing\Resource\Contract\ResourceStrategyInterface;
 use Menumbing\Resource\Trait\MergeResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -28,6 +29,10 @@ class DefaultExceptionHandler extends ExceptionHandler
     {
         if ($this->resource->supports($throwable)) {
             $this->stopPropagation();
+
+            if ($throwable instanceof HasHttpResponseInterface) {
+                return $throwable->generateHttpResponse($response);
+            }
 
             $resource = $this->resource->render($throwable);
 

@@ -48,7 +48,9 @@
         "hyperf/http-message": "^3.1",
         "league/oauth2-server": "^9.2",
         "phpseclib/phpseclib": "^3.0",
-        "hyperf-extension/hashing": "^3.1"
+        "hyperf-extension/hashing": "^3.1",
+        "hyperf/redis": "*",
+        "symfony/serializer-pack": "^1.3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",

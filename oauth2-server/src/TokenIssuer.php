@@ -9,7 +9,6 @@ use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use Menumbing\OAuth2\Server\Contract\ClientModelInterface;
 use Menumbing\OAuth2\Server\Contract\TokenIssuerInterface;
-use Menumbing\OAuth2\Server\Exception\AuthenticationException;
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -57,9 +56,12 @@ final class TokenIssuer implements TokenIssuerInterface
         try {
             return $this->authorizationServer->respondToAccessTokenRequest($request, $response);
         } catch (OAuthServerException $e) {
+            $e->setPayload([
+                ...$e->getPayload(),
+                'code' => (int) ($e->getHttpStatusCode() . $e->getCode()),
+            ]);
+
             return $e->generateHttpResponse($response);
-        } catch (\Exception $e) {
-            throw new AuthenticationException(sprintf('Unauthorized: %s', $e->getMessage()));
         }
     }
 }

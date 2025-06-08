@@ -35,7 +35,9 @@
         "swoole/ide-helper": "dev-master"
     },
     "suggest": {
-        "swow/swow": "Required to create swow components."
+        "swow/swow": "Required to create swow components.",
+        "hyperf/database": "Required to check database.",
+        "hyperf/redis": "Required to check redis."
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

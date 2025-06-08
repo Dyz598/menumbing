@@ -41,9 +41,9 @@ class RequestIpAddress implements RequestIpAddressInterface
     private bool $isForwardedValid = true;
     private static int $trustedHeaderSet = -1;
 
-    public function getClientIp(): string
+    public function getClientIp(): ?string
     {
-        return $this->getClientIps()[0];
+        return $this->getClientIps()[0] ?? null;
     }
 
     public function getClientIps(): array
